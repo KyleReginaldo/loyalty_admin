@@ -19,6 +19,7 @@ abstract class RemoteDatasource {
 class RemoteDatasourceImpl implements RemoteDatasource {
   final db = FirebaseFirestore.instance;
   final storage = FirebaseStorage.instance;
+  late ReservationModel reservation;
   @override
   Future<String> getDownloadUrl(String label, String path) async {
     String downloadUrl = await storage.ref('$label/$path').getDownloadURL();
@@ -50,8 +51,12 @@ class RemoteDatasourceImpl implements RemoteDatasource {
 
   @override
   Stream<List<ReservationModel>> getReservation() {
-    return db.collection('reservation').snapshots().map((event) =>
-        event.docs.map((e) => ReservationModel.fromMap(e.data())).toList());
+    return db
+        .collection('reservation')
+        .snapshots()
+        .map((event) => event.docs.map((e) {
+              return ReservationModel.fromMap(e.data());
+            }).toList());
   }
 
   @override
