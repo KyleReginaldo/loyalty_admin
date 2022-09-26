@@ -2,12 +2,12 @@ import 'dart:convert';
 import 'package:loyalty_admin/domain/entity/reservation_entity.dart';
 
 class ReservationModel extends ReservationEntity {
-  const ReservationModel({
-    super.uid,
-    required super.guest,
-    required super.date,
-    required super.time,
-  });
+  const ReservationModel(
+      {super.uid,
+      required super.guest,
+      required super.date,
+      required super.time,
+      required super.customer});
 
   factory ReservationModel.fromEntity(ReservationEntity reserve) {
     return ReservationModel(
@@ -15,6 +15,7 @@ class ReservationModel extends ReservationEntity {
       guest: reserve.guest,
       date: reserve.date,
       time: reserve.time,
+      customer: reserve.customer,
     );
   }
 
@@ -24,16 +25,17 @@ class ReservationModel extends ReservationEntity {
       'guest': guest,
       'date': date,
       'time': time,
+      'customer': customer,
     };
   }
 
   factory ReservationModel.fromMap(Map<String, dynamic> map) {
     return ReservationModel(
-      uid: map['uid'],
-      guest: map['guest'],
-      date: map['date'],
-      time: map['time'],
-    );
+        uid: map['uid'],
+        guest: map['guest'],
+        date: map['date'],
+        time: map['time'],
+        customer: map['customer']);
   }
 
   String toJson() => json.encode(toMap());

@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const CustomRoboto(
-                text: 'Hello!\nWelcome Back Admin',
+                text: 'Hello!\nWelcome Back Admin!',
                 size: 22,
                 weight: FontWeight.w600,
                 color: Colors.white,
