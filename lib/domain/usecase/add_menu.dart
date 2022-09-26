@@ -5,7 +5,7 @@ import 'package:loyalty_admin/domain/repository/repository.dart';
 class AddMenu {
   final Repository repo;
   AddMenu({required this.repo});
-  Future<void> call(MenuEntity menu) async {
-    await repo.addMenu(menu);
+  Future<void> call(MenuEntity menu, String image) async {
+    await repo.addMenu(menu, image);
   }
 }

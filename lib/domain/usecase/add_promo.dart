@@ -5,7 +5,7 @@ import 'package:loyalty_admin/domain/repository/repository.dart';
 class AddPromo {
   final Repository repo;
   AddPromo({required this.repo});
-  Future<void> call(PromoEntity promo) async {
-    await repo.addPromo(promo);
+  Future<void> call(PromoEntity promo, image) async {
+    await repo.addPromo(promo, image);
   }
 }

@@ -7,14 +7,14 @@ class MenuEntity extends Equatable {
   final String description;
   final String categories;
   final String price;
-  final String image;
+  String image;
   MenuEntity({
     this.uid,
     required this.title,
     required this.description,
     required this.categories,
     required this.price,
-    required this.image,
+    this.image = "",
   });
 
   @override

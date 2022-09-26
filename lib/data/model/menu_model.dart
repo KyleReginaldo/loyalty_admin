@@ -10,7 +10,7 @@ class MenuModel extends MenuEntity {
     required super.description,
     required super.categories,
     required super.price,
-    required super.image,
+    super.image,
   });
 
   factory MenuModel.fromEntity(MenuEntity menu) {
@@ -20,7 +20,7 @@ class MenuModel extends MenuEntity {
       description: menu.description,
       categories: menu.categories,
       price: menu.price,
-      image: menu.image,
+      image: menu.image = '',
     );
   }
 

@@ -6,6 +6,7 @@ import '../../../cubit/customer/customer_cubit.dart';
 import '../../../cubit/reservation/reservation_cubit.dart';
 import '../../../screen/main_screen/customer_detail_screen.dart';
 import '../../components/custom_text.dart';
+import '../../helper/widget_builder.dart';
 import '../user_container.dart';
 
 class CustomTabBarView extends StatelessWidget {
@@ -35,7 +36,12 @@ class CustomTabBarView extends StatelessWidget {
                                   BlocProvider<CustomerCubit>(
                                     create: (context) =>
                                         sl<CustomerCubit>()..fetchCustomer(),
-                                    child: const CustomerDetailScreen(),
+                                    child: Column(
+                                      children: [
+                                        rowCounter('0', 'Coupons'),
+                                        const CustomerDetailScreen(),
+                                      ],
+                                    ),
                                   ))));
                     },
                     child: UserContainer(e: e));
@@ -46,6 +52,10 @@ class CustomTabBarView extends StatelessWidget {
                   text: 'Empty :((',
                   color: Colors.white,
                 ),
+                // child: Lottie.asset(
+                //   'assets/image/not-found.json',
+                //   fit: BoxFit.contain,
+                // ),
               );
             } else {
               return const Center(
@@ -66,8 +76,13 @@ class CustomTabBarView extends StatelessWidget {
               return Expanded(
                   child: Column(
                 children: state.reservation.map((e) {
-                  return Container(
-                    color: Colors.red,
+                  return Column(
+                    children: [
+                      rowCounter('0', 'Coupons'),
+                      Container(
+                        color: Colors.red,
+                      ),
+                    ],
                   );
                 }).toList(),
               ));

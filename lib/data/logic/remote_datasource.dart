@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:loyalty_admin/data/model/customer_model.dart';
 import 'package:loyalty_admin/data/model/menu_model.dart';
 import 'package:loyalty_admin/data/model/promo_model.dart';
@@ -7,23 +10,35 @@ import 'package:loyalty_admin/data/model/reservation_mode.dart';
 abstract class RemoteDatasource {
   Stream<List<CustomerModel>> getCustomer();
   Stream<List<ReservationModel>> getReservation();
-  Future<void> addPromo(PromoModel promo);
-  Future<void> addMenu(MenuModel menu);
+  Future<void> addPromo(PromoModel promo, String image);
+  Future<void> addMenu(MenuModel menu, String image);
+  Future<void> uploadToStorage(String label, File file);
+  Future<String> getDownloadUrl(String label, String path);
 }
 
 class RemoteDatasourceImpl implements RemoteDatasource {
   final db = FirebaseFirestore.instance;
+  final storage = FirebaseStorage.instance;
   @override
-  Future<void> addMenu(MenuModel menu) async {
+  Future<String> getDownloadUrl(String label, String path) async {
+    String downloadUrl = await storage.ref('$label/$path').getDownloadURL();
+    print('downloadUrl: $downloadUrl');
+    return downloadUrl;
+  }
+
+  @override
+  Future<void> addMenu(MenuModel menu, String image) async {
     final docUser = db.collection('menu').doc();
     menu.uid = docUser.id;
+    menu.image = image;
     await docUser.set(menu.toMap());
   }
 
   @override
-  Future<void> addPromo(PromoModel promo) async {
+  Future<void> addPromo(PromoModel promo, String image) async {
     final docUser = db.collection('promo').doc();
     promo.uid = docUser.id;
+    promo.image = image;
     await docUser.set(promo.toMap());
   }
 
@@ -37,6 +52,11 @@ class RemoteDatasourceImpl implements RemoteDatasource {
   Stream<List<ReservationModel>> getReservation() {
     return db.collection('reservation').snapshots().map((event) =>
         event.docs.map((e) => ReservationModel.fromMap(e.data())).toList());
+  }
+
+  @override
+  Future<void> uploadToStorage(String label, File file) async {
+    await storage.ref('$label/${file.path}').putFile(file);
   }
 }
 

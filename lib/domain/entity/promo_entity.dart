@@ -5,12 +5,12 @@ class PromoEntity extends Equatable {
   String? uid;
   final String title;
   final String description;
-  final String image;
+  String image;
   PromoEntity({
     this.uid,
     required this.title,
     required this.description,
-    required this.image,
+    this.image = '',
   });
 
   @override

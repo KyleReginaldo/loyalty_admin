@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:loyalty_admin/presentation/widget/components/custom_container.dart';
 import 'package:loyalty_admin/presentation/widget/custom/tab_bar/tab_bar.dart';
-import 'package:loyalty_admin/presentation/widget/custom/tab_bar/tab_bar_view.dart';
-import 'package:loyalty_admin/presentation/widget/helper/widget_builder.dart';
 
 import '../../widget/components/custom_text.dart';
+import '../../widget/custom/tab_bar/tab_bar_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -31,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen>
       padding: const EdgeInsets.all(10),
       child: Column(
         children: [
-          const SizedBox(height: 35),
+          const SizedBox(height: 45),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -44,13 +43,14 @@ class _HomeScreenState extends State<HomeScreen>
               Image.asset('assets/image/qr.png')
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 30),
           CustomTabBar(controller: _tabController),
           const SizedBox(height: 30),
-          rowCounter('0', 'Coupons'),
-          Expanded(child: CustomTabBarView(controller: _tabController)),
+          Expanded(
+            child: CustomTabBarView(controller: _tabController),
+          ),
           CustomContainer(label: 'Export', onTap: () {}),
-          const SizedBox(height: 25),
+          const SizedBox(height: 30)
         ],
       ),
     );

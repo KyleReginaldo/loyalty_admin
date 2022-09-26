@@ -7,7 +7,7 @@ class PromoModel extends PromoEntity {
     super.uid,
     required super.title,
     required super.description,
-    required super.image,
+    super.image,
   });
 
   factory PromoModel.fromEntity(PromoEntity promo) {
@@ -15,7 +15,7 @@ class PromoModel extends PromoEntity {
       uid: promo.uid,
       title: promo.title,
       description: promo.description,
-      image: promo.image,
+      image: promo.image = '',
     );
   }
 
